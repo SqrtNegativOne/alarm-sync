@@ -74,7 +74,7 @@
 		await fetchAlarms();
 	}
 </script>
-
+<!--
 <button on:click={signOutUser}>Sign Out</button>
 
 <h1>Your Alarms</h1>
@@ -98,4 +98,76 @@
 			<button on:click={() => deleteAlarm(alarm.id)}>Delete</button>
 		</li>
 	{/each}
+</ul>
+-->
+
+<button
+  on:click={signOutUser}
+  class="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded mb-6"
+>
+  Sign Out
+</button>
+
+<h1 class="text-2xl font-bold mb-4">Your Alarms</h1>
+
+<form
+  on:submit={addAlarm}
+  class="bg-white shadow-md rounded-lg p-6 mb-6 space-y-4 max-w-md"
+>
+  <div>
+    <label for="alarmDate" class="block text-sm font-medium text-gray-700">Date:</label>
+    <input
+      type="date"
+      id="alarmDate"
+      bind:value={alarmDate}
+      required
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+    />
+  </div>
+
+  <div>
+    <label for="alarmTime" class="block text-sm font-medium text-gray-700">Time:</label>
+    <input
+      type="time"
+      id="alarmTime"
+      bind:value={alarmTime}
+      required
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+    />
+  </div>
+
+  <div>
+    <label for="alarmPurpose" class="block text-sm font-medium text-gray-700">Purpose:</label>
+    <input
+      type="text"
+      id="alarmPurpose"
+      bind:value={alarmPurpose}
+      required
+      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+    />
+  </div>
+
+  <button
+    type="submit"
+    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+  >
+    Add Alarm
+  </button>
+</form>
+
+<ul class="space-y-4 max-w-md">
+  {#each $alarms as alarm}
+    <li class="flex justify-between items-center bg-gray-100 px-4 py-3 rounded-lg shadow-sm">
+      <div>
+        <p class="text-gray-800 font-medium">{new Date(alarm.time).toLocaleString()}</p>
+        <p class="text-gray-600 text-sm">{alarm.purpose}</p>
+      </div>
+      <button
+        on:click={() => deleteAlarm(alarm.id)}
+        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded"
+      >
+        Delete
+      </button>
+    </li>
+  {/each}
 </ul>
